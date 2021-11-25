@@ -12,9 +12,9 @@ public class Store {
 
     private static final Store INST = new Store();
 
-    private Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
-    private Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     @SuppressWarnings("checkstyle:StaticVariableName")
     private static AtomicInteger postId = new AtomicInteger(4);
