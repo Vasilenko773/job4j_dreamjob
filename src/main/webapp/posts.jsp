@@ -9,7 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -38,7 +41,12 @@
                     <tbody>
                     <% for (Post post : Store.instOf().findAllPosts()) { %>
                     <tr>
-                        <td><%= post.getName() %></td>
+                        <td>
+                            <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
+                                <i class="fa fa-edit mr-3"></i>
+                            </a>
+                            <%=post.getName()%>
+                        </td>
                     </tr>
                     <% } %>
                     </tbody>
