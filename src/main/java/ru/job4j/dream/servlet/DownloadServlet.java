@@ -7,21 +7,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
 
 public class DownloadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        File users = null;
+        String name = req.getParameter("name");
+        File downloadFile = null;
         for (File file : new File("c:\\images\\").listFiles()) {
-            if ("users.txt".equals(file.getName())) {
-                users = file;
+            if (name.equals(file.getName())) {
+                downloadFile = file;
                 break;
             }
         }
-
-        try (FileInputStream stream = new FileInputStream(users)) {
+        resp.setContentType("application/octet-stream");
+        resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
+        try (FileInputStream stream = new FileInputStream(downloadFile)) {
             resp.getOutputStream().write(stream.readAllBytes());
         }
     }

@@ -13,6 +13,11 @@
   <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.UploadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.DownloadServlet</servlet-class>
     </servlet>
@@ -31,6 +36,11 @@
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.IndexServlet</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>DownloadServlet</servlet-name>
