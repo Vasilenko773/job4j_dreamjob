@@ -2,7 +2,7 @@
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="java.util.Collection" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -35,11 +35,14 @@
       </div>
       <div class="card-body">
         <table class="table">
+
           <thead>
           <tr>
             <th scope="col">Названия</th>
+            <th scope="col">Фотография</th>
           </tr>
           </thead>
+
           <tbody>
           <c:forEach items="${candidates}" var="candidate">
             <tr>
@@ -50,13 +53,16 @@
                 <c:out value="${candidate.name}"/>
               </td>
 
-              <td><a href="<c:url value='/download?name=${image}'/>">Download</a></td>
-              <td>
-                <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
-              </td>
+              <th>
+              <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
+              <a href="<c:url value='/upload.jsp?name=${image}'/>">Добавить фото</a>
+              <a href="<c:url value='/download?name=${image}'/>">Удалить фото</a>
 
+              </th>
             </tr>
+
           </c:forEach>
+
           </tbody>
         </table>
       </div>
