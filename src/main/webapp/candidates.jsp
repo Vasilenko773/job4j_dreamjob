@@ -56,7 +56,7 @@
               <th>
               <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
               <a href="<c:url value='/upload.jsp?name=${image}'/>">Добавить фото</a>
-              <a href="<c:url value='/download?name=${image}'/>">Удалить фото</a>
+              <a href="<c:url value='/delete?name=${image}'/>">Удалить фото</a>
 
               </th>
             </tr>
