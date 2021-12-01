@@ -1,6 +1,6 @@
 package ru.job4j.dream.servlet;
 
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        Store.instOf().deleteCandidateById(Integer.valueOf(id));
+        MemStore.instOf().deleteCandidateById(Integer.valueOf(id));
         File file = new File("c:\\images\\");
         for (File f : file.listFiles()) {
             String fileName = f.getName().split("\\.")[0];
