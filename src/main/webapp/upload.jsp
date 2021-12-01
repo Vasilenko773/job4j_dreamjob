@@ -35,7 +35,6 @@
     </table>
     <h2>Upload image</h2>
 
-
     <form action="<%=request.getContextPath()%>/upload?id=<%=request.getParameter("id")%>" method="post" enctype="multipart/form-data">
         <div class="checkbox">
             <input type="file" name="file">
