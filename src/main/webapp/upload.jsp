@@ -1,3 +1,5 @@
+<%@ page import="ru.job4j.dream.model.Candidate" %>
+<%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page language="java" pageEncoding="UTF-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -12,6 +14,14 @@
 </head>
 <body>
 
+<%
+    String id = request.getParameter("id");
+    Candidate cnd = new Candidate(0, "");
+    if (id != null) {
+        cnd = Store.instOf().findByIdCnd(Integer.valueOf(id));
+    }
+%>
+
 <div class="container">
     <table class="table">
         <thead>
@@ -25,8 +35,8 @@
     </table>
     <h2>Upload image</h2>
 
-    <form action="<c:url value='/upload?id=${candidate.id}'/>" method="post" enctype="multipart/form-data">
 
+    <form action="<%=request.getContextPath()%>/upload?id=<%=request.getParameter("id")%>" method="post" enctype="multipart/form-data">
         <div class="checkbox">
             <input type="file" name="file">
         </div>
