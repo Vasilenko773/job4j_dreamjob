@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DbStore implements Store {
 
@@ -63,7 +65,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/findAllPosts").log(Level.INFO, "Ошибка при получении списка вакансий");
         }
         return posts;
     }
@@ -78,7 +80,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/findAllCandidates").log(Level.INFO, "Ошибка при получении списка кандидатов");
         }
         return cnd;
     }
@@ -96,9 +98,9 @@ public class DbStore implements Store {
         if (cnd.getId() == 0) {
             createCnd(cnd);
         } else {
-         updateCnd(cnd);
+            updateCnd(cnd);
+        }
     }
-}
 
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
@@ -112,7 +114,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/create").log(Level.INFO, "Не удалось добавить вакансию");
         }
         return post;
     }
@@ -129,7 +131,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/createCnd").log(Level.INFO, "Не удалось добавить кандидата");
         }
         return cnd;
     }
@@ -141,7 +143,7 @@ public class DbStore implements Store {
             ps.setInt(2, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/update").log(Level.INFO, "Не удалось изменить вакансию");
         }
     }
 
@@ -152,7 +154,7 @@ public class DbStore implements Store {
             ps.setInt(2, cnd.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/updateCnd").log(Level.INFO, "Не удалось изменить кандидата");
         }
     }
 
@@ -166,7 +168,22 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DbStore/findById").log(Level.INFO, "Отсутвует вакансия с указанным id");
+        }
+        return null;
+    }
+
+    public Candidate findByIdCnd(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Candidate(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger("DbStore/findByIdCnd").log(Level.INFO, "Отсутвует кандидат с указанным id");
         }
         return null;
     }
