@@ -15,10 +15,7 @@ import java.util.logging.Logger;
 
 public class DbStore implements Store {
 
-    private static final DbStore INSTANCE = new DbStore();
-
     private final BasicDataSource pool = new BasicDataSource();
-
 
     private DbStore() {
         Properties cfg = new Properties();
@@ -54,6 +51,7 @@ public class DbStore implements Store {
         return Lazy.INST;
     }
 
+    @Override
     public Collection<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
@@ -70,6 +68,7 @@ public class DbStore implements Store {
         return posts;
     }
 
+    @Override
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> cnd = new ArrayList<>();
         try (Connection cn = pool.getConnection();
@@ -85,6 +84,7 @@ public class DbStore implements Store {
         return cnd;
     }
 
+    @Override
     public void save(Post post) {
         if (post.getId() == 0) {
             create(post);
@@ -158,6 +158,7 @@ public class DbStore implements Store {
         }
     }
 
+    @Override
     public Post findById(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post WHERE id = ?")) {
@@ -173,6 +174,7 @@ public class DbStore implements Store {
         return null;
     }
 
+    @Override
     public Candidate findByIdCnd(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
