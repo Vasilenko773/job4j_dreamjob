@@ -189,4 +189,20 @@ public class DbStore implements Store {
         }
         return null;
     }
+
+    @Override
+    public Candidate deleteCnd(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE from candidate WHERE id = ?")) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Candidate(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger("DbStore/deleteCnd").log(Level.INFO, "Ошибка при удалении кандидата");
+        }
+        return null;
+    }
 }

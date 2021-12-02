@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
@@ -13,14 +14,14 @@ public class CandidateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
+        req.setAttribute("candidates", DbStore.instOf().findAllCandidates());
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        MemStore.instOf().saveCandidate(
+        DbStore.instOf().saveCnd(
                 new Candidate(
                         Integer.valueOf(req.getParameter("id")),
                         req.getParameter("name")
