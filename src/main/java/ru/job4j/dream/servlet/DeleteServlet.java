@@ -14,6 +14,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("id");
+        req.setAttribute("candidate", MemStore.instOf().deleteCandidate(Integer.valueOf(name)));
         File file = new File("c:\\images\\");
         for (File f : file.listFiles()) {
             String fileName = f.getName().split("\\.")[0];

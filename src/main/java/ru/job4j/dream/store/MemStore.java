@@ -59,6 +59,10 @@ public class MemStore {
         candidates.put(candidate.getId(), candidate);
     }
 
+    public Candidate deleteCandidate(int id) {
+       return candidates.remove(id);
+    }
+
     public Candidate findByIdCnd(int id) {
         return candidates.get(id);
     }
