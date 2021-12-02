@@ -1,4 +1,4 @@
-CREATE TABLE post
+CREATE TABLE candidate
 (
     id   SERIAL PRIMARY KEY,
     name TEXT

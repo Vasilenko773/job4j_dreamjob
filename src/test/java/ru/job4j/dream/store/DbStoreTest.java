@@ -1,20 +1,11 @@
 package ru.job4j.dream.store;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import ru.job4j.dream.model.Post;
 
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import org.junit.Test;
+import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Post;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -42,11 +33,43 @@ public class DbStoreTest {
     }
 
     @Test
-    public void whenDeletePost() {
+    public void whenFindAllPost() {
         Store store = DbStore.instOf();
         Post post = new Post(0, "Java Job");
         List<Post> list = new ArrayList<>(store.findAllPosts());
         store.save(post);
         assertThat(list.get(list.size() - 1).getName(), is(post.getName()));
+    }
+
+    @Test
+    public void whenCreateCandidate() {
+        Store store = DbStore.instOf();
+        Candidate candidate = new Candidate(0, "Java JobMan");
+        store.saveCnd(candidate);
+        Candidate cndInDb = store.findByIdCnd(candidate.getId());
+        assertThat(cndInDb.getName(), is(candidate.getName()));
+    }
+
+    @Test
+    public void whenUpdateCandidate() {
+        Store store = DbStore.instOf();
+        Candidate cnd = new Candidate(1, "Java JobMan");
+        Candidate cnd1 = new Candidate(1, "Java MidlMan");
+        store.saveCnd(cnd);
+        store.saveCnd(cnd1);
+        Candidate cndInDb = store.findByIdCnd(1);
+        assertThat(cndInDb.getName(), is(cnd1.getName()));
+    }
+
+    @Test
+    public void whenFindAllCandidate() {
+        Store store = DbStore.instOf();
+        Candidate cnd = new Candidate(1, "Java JobMan");
+        Candidate cnd1 = new Candidate(1, "Java MidlMan");
+        store.saveCnd(cnd);
+        store.saveCnd(cnd1);
+        List<Candidate> list = new ArrayList<>(store.findAllCandidates());
+
+        assertThat(list.get(store.findById(cnd.getId()).getId()).getName(), is(cnd.getName()));
     }
 }
