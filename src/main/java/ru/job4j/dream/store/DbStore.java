@@ -1,6 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
@@ -11,14 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class DbStore implements Store {
 
     private final BasicDataSource pool = new BasicDataSource();
 
-    private org.slf4j.Logger logger = LoggerFactory.getLogger(DbStore.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbStore.class);
 
     private DbStore() {
         Properties cfg = new Properties();
@@ -64,7 +64,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            logger.error("Ошибка при получении списка вакансий");
+            LOGGER.error("Ошибка при получении списка вакансий", e);
         }
         return posts;
     }
@@ -80,7 +80,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-           logger.error("Ошибка при получении списка кандидатов");
+            LOGGER.error("Ошибка при получении списка кандидатов", e);
         }
         return cnd;
     }
@@ -115,7 +115,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            logger.error("Не удалось добавить вакансию");
+            LOGGER.error("Не удалось добавить вакансию", e);
         }
         return post;
     }
@@ -132,7 +132,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-           logger.error("Не удалось добавить кандидата");
+            LOGGER.error("Не удалось добавить кандидата", e);
         }
         return cnd;
     }
@@ -144,7 +144,7 @@ public class DbStore implements Store {
             ps.setInt(2, post.getId());
             ps.execute();
         } catch (Exception e) {
-            logger.error("Не удалось изменить вакансию");
+            LOGGER.error("Не удалось изменить вакансию", e);
         }
     }
 
@@ -155,7 +155,7 @@ public class DbStore implements Store {
             ps.setInt(2, cnd.getId());
             ps.execute();
         } catch (Exception e) {
-           logger.error("Не удалось изменить кандидата");
+            LOGGER.error("Не удалось изменить кандидата", e);
         }
     }
 
@@ -170,7 +170,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-           logger.error("Отсутвует вакансия с указанным id");
+            LOGGER.error("Отсутвует вакансия с указанным id", e);
         }
         return null;
     }
@@ -186,7 +186,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-           logger.error("Отсутвует кандидат с указанным id");
+            LOGGER.error("Отсутвует кандидат с указанным id", e);
         }
         return null;
     }
@@ -202,7 +202,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            logger.error("Ошибка при удалении кандидата");
+            LOGGER.error("Ошибка при удалении кандидата", e);
         }
         return null;
     }
