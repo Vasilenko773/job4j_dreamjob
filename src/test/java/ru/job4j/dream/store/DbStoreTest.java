@@ -81,10 +81,10 @@ public class DbStoreTest {
         List<Candidate> list = new ArrayList<>(store.findAllCandidates());
         Candidate exp = null;
         for (Candidate candidate : list) {
-            if (candidate.getName().equals(cnd.getName())) {
+            if (candidate.getName().equals(cnd1.getName())) {
                 exp = candidate;
             }
         }
-        assertThat(exp.getName(), is(cnd.getName()));
+        assertThat(exp.getName(), is(cnd1.getName()));
     }
 }
