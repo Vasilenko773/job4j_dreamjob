@@ -13,6 +13,11 @@
   <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>AuthServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.AuthServlet</servlet-class>
     </servlet>
@@ -80,6 +85,11 @@
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout.do</url-pattern>
     </servlet-mapping>
 
 </web-app>
