@@ -35,10 +35,12 @@ public class DbStoreTest {
     @Test
     public void whenFindAllPost() {
         Store store = DbStore.instOf();
-        Post post = new Post(0, "Java Job");
-        List<Post> list = new ArrayList<>(store.findAllPosts());
+        Post post = new Post(0, "Java Master");
+        Post post1 = new Post(1, "Java Developer");
         store.save(post);
-        assertThat(list.get(list.size() - 1).getName(), is(post.getName()));
+        store.save(post1);
+        List<Post> list = new ArrayList<>(store.findAllPosts());
+        assertThat(list.get(store.findById(post.getId() - 1).getId()).getName(), is(post.getName()) );
     }
 
     @Test
@@ -64,12 +66,11 @@ public class DbStoreTest {
     @Test
     public void whenFindAllCandidate() {
         Store store = DbStore.instOf();
-        Candidate cnd = new Candidate(1, "Java JobMan");
+        Candidate cnd = new Candidate(0, "Java JobManMan");
         Candidate cnd1 = new Candidate(1, "Java MidlMan");
         store.saveCnd(cnd);
         store.saveCnd(cnd1);
         List<Candidate> list = new ArrayList<>(store.findAllCandidates());
-
-        assertThat(list.get(store.findById(cnd.getId()).getId()).getName(), is(cnd.getName()));
+        assertThat(list.get(store.findByIdCnd(cnd.getId()).getId() - 1).getName(), is(cnd.getName()));
     }
 }
