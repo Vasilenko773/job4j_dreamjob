@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.is;
 
 public class DbStoreTest {
 
-    @Ignore
     @Test
     public void whenCreatePost() {
         Store store = DbStore.instOf();
@@ -24,7 +23,6 @@ public class DbStoreTest {
         assertThat(postInDb.getName(), is(post.getName()));
     }
 
-    @Ignore
     @Test
     public void whenUpdatePost() {
         Store store = DbStore.instOf();
@@ -36,7 +34,6 @@ public class DbStoreTest {
         assertThat(postInDb.getName(), is(post1.getName()));
     }
 
-    @Ignore
     @Test
     public void whenFindAllPost() {
         Store store = DbStore.instOf();
@@ -45,10 +42,15 @@ public class DbStoreTest {
         store.save(post);
         store.save(post1);
         List<Post> list = new ArrayList<>(store.findAllPosts());
-        assertThat(list.get(store.findById(post.getId() - 1).getId()).getName(), is(post.getName()));
+        Post exp = null;
+        for (Post p : list) {
+            if (p.getName().equals(post1.getName())) {
+                exp = p;
+            }
+        }
+        assertThat(exp.getName(), is(post1.getName()));
     }
 
-    @Ignore
     @Test
     public void whenCreateCandidate() {
         Store store = DbStore.instOf();
@@ -58,7 +60,6 @@ public class DbStoreTest {
         assertThat(cndInDb.getName(), is(candidate.getName()));
     }
 
-    @Ignore
     @Test
     public void whenUpdateCandidate() {
         Store store = DbStore.instOf();
@@ -70,7 +71,6 @@ public class DbStoreTest {
         assertThat(cndInDb.getName(), is(cnd1.getName()));
     }
 
-    @Ignore
     @Test
     public void whenFindAllCandidate() {
         Store store = DbStore.instOf();
@@ -79,6 +79,12 @@ public class DbStoreTest {
         store.saveCnd(cnd);
         store.saveCnd(cnd1);
         List<Candidate> list = new ArrayList<>(store.findAllCandidates());
-        assertThat(list.get(store.findByIdCnd(cnd.getId()).getId() - 1).getName(), is(cnd.getName()));
+        Candidate exp = null;
+        for (Candidate candidate : list) {
+            if (candidate.getName().equals(cnd.getName())) {
+                exp = candidate;
+            }
+        }
+        assertThat(exp.getName(), is(cnd.getName()));
     }
 }
