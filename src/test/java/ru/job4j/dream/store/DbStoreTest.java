@@ -42,13 +42,8 @@ public class DbStoreTest {
         store.save(post);
         store.save(post1);
         List<Post> list = new ArrayList<>(store.findAllPosts());
-        Post exp = null;
-        for (Post p : list) {
-            if (p.getName().equals(post1.getName())) {
-                exp = p;
-            }
-        }
-        assertThat(exp.getName(), is(post1.getName()));
+
+        assertThat(list.iterator().next().getName(), is(post1.getName()));
     }
 
     @Test
@@ -79,12 +74,6 @@ public class DbStoreTest {
         store.saveCnd(cnd);
         store.saveCnd(cnd1);
         List<Candidate> list = new ArrayList<>(store.findAllCandidates());
-        Candidate exp = null;
-        for (Candidate candidate : list) {
-            if (candidate.getName().equals(cnd1.getName())) {
-                exp = candidate;
-            }
-        }
-        assertThat(exp.getName(), is(cnd1.getName()));
+        assertThat(list.iterator().next().getName(), is(cnd1.getName()));
     }
 }
