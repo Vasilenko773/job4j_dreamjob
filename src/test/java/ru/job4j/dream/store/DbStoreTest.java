@@ -5,6 +5,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,14 @@ public class DbStoreTest {
         store.saveCnd(cnd1);
         List<Candidate> list = new ArrayList<>(store.findAllCandidates());
         assertThat(list.iterator().next().getName(), is(cnd1.getName()));
+    }
+
+    @Test
+    public void whenSaveUserAndFindByEmail() {
+        Store store = DbStore.instOf();
+       User user = new User("Kamle", "good@mail.ru");
+       store.saveUser(user);
+        assertThat(store.findByEmailUser(user.getEmail()).getName(), is(user.getName()));
+
     }
 }

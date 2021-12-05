@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -203,6 +204,49 @@ public class DbStore implements Store {
             }
         } catch (Exception e) {
             LOGGER.error("Ошибка при удалении кандидата", e);
+        }
+        return null;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        if (user.getEmail() != null) {
+            createUser(user);
+        }
+    }
+
+
+
+    private User createUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO users(name, email) VALUES (?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Не удалось добавить пользователя", e);
+        }
+        return user;
+    }
+
+    @Override
+    public User findByEmailUser(String email) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ?")) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new User(it.getString("name"), it.getString("email"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Отсутвует пользователь с указанным email", e);
         }
         return null;
     }

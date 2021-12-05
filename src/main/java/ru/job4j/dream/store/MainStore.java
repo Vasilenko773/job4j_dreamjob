@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -23,6 +24,8 @@ public class MainStore {
         for (Candidate c : store.findAllCandidates()) {
             System.out.println(c.getId() + " " + c.getName());
         }
+        store.saveUser(new User("Alex", "mail@"));
+        System.out.println(store.findByEmailUser("mail@"));
     }
 }
 
