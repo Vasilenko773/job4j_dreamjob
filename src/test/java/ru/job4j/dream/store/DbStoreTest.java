@@ -81,7 +81,7 @@ public class DbStoreTest {
     @Test
     public void whenSaveUserAndFindByEmail() {
         Store store = DbStore.instOf();
-       User user = new User("Kamle", "good@mail.ru");
+       User user = new User("Kamle", "good@mail.ru", "qwerty");
        store.saveUser(user);
         assertThat(store.findByEmailUser(user.getEmail()).getName(), is(user.getName()));
 

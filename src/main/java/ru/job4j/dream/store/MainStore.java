@@ -24,8 +24,8 @@ public class MainStore {
         for (Candidate c : store.findAllCandidates()) {
             System.out.println(c.getId() + " " + c.getName());
         }
-        store.saveUser(new User("Alex", "mail@"));
-        System.out.println(store.findByEmailUser("mail@"));
+        store.saveUser(new User("Alex", "mail@", "qwerty"));
+        System.out.println(store.findByEmailUser("mail@").getPassword());
     }
 }
 
