@@ -10,7 +10,12 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>RegServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.RegServlet</servlet-class>
+    </servlet>
 
     <filter>
         <filter-name>AuthFilter</filter-name>
@@ -56,6 +61,11 @@
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.IndexServlet</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegServlet</servlet-name>
+        <url-pattern>/reg.do</url-pattern>
+    </servlet-mapping>
 
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>

@@ -46,6 +46,22 @@
       </div>
     </div>
   </div>
+
+
+  <div class="row">
+    <div class="card" style="width: 100%">
+      <div class="card-header">
+        Регистрация пользователя
+      </div>
+      <div class="card-body">
+        <li class="nav-item">
+          <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
+        </li>
+      </div>
+      </div>
+  </div>
+
+
 </div>
 </body>
 </html>
