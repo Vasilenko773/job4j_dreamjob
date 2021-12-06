@@ -15,7 +15,7 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User admin = DbStore.instOf().findByEmailUser(req.getParameter("email"));
-        if ("root@local".equals(admin.getEmail()) && "root".equals(admin.getPassword())) {
+        if (admin != null) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", admin);
             resp.sendRedirect(req.getContextPath() + "/posts.do");

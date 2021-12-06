@@ -1,5 +1,7 @@
 package ru.job4j.dream.model;
 
+import org.postgresql.util.ServerErrorMessage;
+
 import java.util.Objects;
 
 public class User {

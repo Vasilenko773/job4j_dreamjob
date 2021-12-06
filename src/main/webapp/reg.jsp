@@ -32,17 +32,17 @@
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Логин</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" required aria-required="true">
                     </div>
 
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" required aria-required="true">
                     </div>
 
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" required aria-required="true">
                     </div>
                     <button type="submit" class="btn btn-primary">Зарегистрироватся</button>
                     <c:if test="${not empty error}">
