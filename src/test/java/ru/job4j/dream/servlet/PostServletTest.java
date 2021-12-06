@@ -28,7 +28,7 @@ public class PostServletTest {
         when(req.getParameter("name")).thenReturn("name of new post");
         when(req.getParameter("description")).thenReturn("d");
         new PostServlet().doPost(req, resp);
-        Post post = DbStore.instOf().findById(2);
+        Post post = DbStore.instOf().findById(1);
         assertThat(post, notNullValue());
     }
 
