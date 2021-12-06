@@ -30,7 +30,7 @@ public class RegServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/posts.do");
 
         } else {
-            req.setAttribute("error", "Не указан логи, email или пароль");
+            req.setAttribute("error", "пользователь с таким email уже существует. Попробуйде снова");
             req.getRequestDispatcher("reg.jsp").forward(req, resp);
         }
     }
