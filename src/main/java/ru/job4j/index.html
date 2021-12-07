@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            var members = ['nm', 'fm', 'gn', 'dc'];
+            for (var i = 0; i < members.length; i++) {
+                var value = $('#members[i]').val()
+                if (value === '') {
+                    alert($('#members[i]').attr('title'));
+                }
+            }
+            return false;
+        }
+    </script>
+
 </head>
 <body>
 
@@ -17,27 +30,29 @@
 
 <form>
     <div class="form-group">
-        <label for="exampleInputName1">Имя</label>
-        <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+        <label for="nm">Имя</label>
+        <input type="name" class="form-control" title="Введтье имя пользователя. " id="nm" aria-describedby="nameHelp">
     </div>
 
     <div class="form-group">
-        <label for="exampleInputFamily1">Фамилия</label>
-        <input type="family" class="form-control" id="exampleInputFamily1">
+        <label for="fm">Фамилия</label>
+        <input type="family" class="form-control" id="fm">
     </div>
 
     <div class="form-group">
-        <label for="exampleInputGender1">Пол</label>
-        <input type="gender" class="form-control" id="exampleInputGender1">
+        <label for="gn">Пол</label>
+        <input type="gender" class="form-control" id="gn">
     </div>
 
     <div class="form-group">
-        <label for="exampleInputDescription1">Описание</label>
-        <input type="description" class="form-control" id="exampleInputDescription1">
+        <label for="dc">Описание</label>
+        <input type="description" class="form-control" id="dc">
     </div>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
 </form>
 
 <table class="table">
+    <title>Таблица пользователей</title>
     <thead>
     <tr>
         <th scope="col">индекс</th>
