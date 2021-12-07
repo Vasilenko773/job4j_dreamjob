@@ -16,15 +16,21 @@
                     alert($('#members[i]').attr('title'));
                 }
             }
-            return false;
+            return false
         }
 
+
         function addRow() {
-            $('#table tr:last').after(
-                '<tr><td>' + $('#nm').val() + '</td>' +
-                '<td>' + $('#fm').val() + '</td>' +
-                '<td>' + $('#gn').val() + '</td>' +
-                '<td>' + $('#dc').val() + '</td></tr>');
+
+
+            if (!validate()) {
+                $('#table tr:last').after(
+                    '<tr><td>' + 3 + '</td>' +
+                    '<td>' + $('#nm').val() + '</td>' +
+                    '<td>' + $('#fm').val() + '</td>' +
+                    '<td>' + $('#gn').val() + '</td>' +
+                    '<td>' + $('#dc').val() + '</td></tr>');
+            }
         }
     </script>
 
