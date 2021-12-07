@@ -18,6 +18,14 @@
             }
             return false;
         }
+
+        function addRow() {
+            $('#table tr:last').after(
+                '<tr><td>' + $('#nm').val() + '</td>' +
+                '<td>' + $('#fm').val() + '</td>' +
+                '<td>' + $('#gn').val() + '</td>' +
+                '<td>' + $('#dc').val() + '</td></tr>');
+        }
     </script>
 
 </head>
@@ -48,10 +56,11 @@
         <label for="dc">Описание</label>
         <input type="description" class="form-control" id="dc">
     </div>
+    <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
 </form>
 
-<table class="table">
+<table id='table'>
     <title>Таблица пользователей</title>
     <thead>
     <tr>
