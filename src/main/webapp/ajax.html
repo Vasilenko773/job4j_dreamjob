@@ -22,26 +22,51 @@
 <script>
     function sendGreeting() {
         $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/dreamjob/greet',
-            data: 'name=' + $('#email').val(),
-            dataType: 'text'
-        }).done(function(data) {
-            alert(data);
-        }).fail(function(err){
-            alert(err);
+            type: 'post',
+            url: 'http://localhost:8080/items/greet',
+            data: JSON.stringify({
+                name: $('#exampleInputEmail1').val()
+            }),
+            dataType: 'json'
+        }).done(function (data) {
+            $('#emailList li:last').append(`<li>${data.name}</li>`)
+        }).fail(function (err) {
+            console.log(err);
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/items/greet',
+                dataType: 'json'
+            }).done(function (data) {
+                for (var email of data) {
+                    $('#emailList li:last').append(`<li>${email.name}</li>`)
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
         });
     }
+
 </script>
 <body>
-<div class="container">
-    <form>
-        <div class="form-group">
-            <label for="email" style="font-weight: bold">Email address</label>
-            <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <button type="button" class="btn btn-primary" onclick="sendGreeting()">Submit</button>
-    </form>
-</div>
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="Enter email">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="sendGreeting()">Submit</button>
+        </form>
+        <br>
+        Почты:
+        <ul id="emailList">
+            <li></li>
+        </ul>
+    </div>
+
 </body>
 </html>
