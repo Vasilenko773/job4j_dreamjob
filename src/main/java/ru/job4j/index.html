@@ -9,23 +9,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         function validate() {
-            var members = ['nm', 'fm', 'gn', 'dc'];
-            for (var i = 0; i < members.length; i++) {
-                var value = $('#members[i]').val()
-                if (value === '') {
-                    alert($('#members[i]').attr('title'));
-                }
+            if ($('#nm').val() === "") {
+                alert('Имя не введенно');
+                return false;
+            } else if ($('#fm').val() === "") {
+                alert('Не заполнена фамилия');
+                return false;
+            } else if ($('#gn').val() === "") {
+                alert('Не заполненн пол');
+                return false;
+            } else if ($('#dc').val() === "") {
+                alert('Не заполненно описание');
+                return false;
+            } else {
+                return true;
             }
-            return false
         }
 
-
         function addRow() {
-
-
-            if (!validate()) {
+            var table = document.getElementById('table')
+            if (validate()) {
+                var count = table.rows.length;
                 $('#table tr:last').after(
-                    '<tr><td>' + 3 + '</td>' +
+                    '<tr><td>' + count + '</td>' +
                     '<td>' + $('#nm').val() + '</td>' +
                     '<td>' + $('#fm').val() + '</td>' +
                     '<td>' + $('#gn').val() + '</td>' +
