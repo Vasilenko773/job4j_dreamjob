@@ -2,7 +2,7 @@ package ru.job4j.dream.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.job4j.dream.model.Email;
+import ru.job4j.dream.servlet.model.Email;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
