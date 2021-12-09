@@ -51,6 +51,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/city.jsp">Список городов</a>
+                </li>
+
             </div>
         </div>
     </div>

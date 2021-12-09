@@ -16,6 +16,22 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
           integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+  <script>
+    function validate() {
+      if ($('#ml').val() === "") {
+        alert('Не заполненно поле Почта');
+        return false;
+      } else if ($('#pass').val() === "") {
+        alert('Не заполненно поле Пароль');
+        return false;
+      } else {
+        return true;
+      }
+    }
+  </script>
+
+
+
   <title>Работа мечты</title>
 </head>
 <body>
@@ -29,14 +45,15 @@
       <div class="card-body">
         <form action="<%=request.getContextPath()%>/auth.do" method="post">
           <div class="form-group">
-            <label>Почта</label>
-            <input type="text" class="form-control" name="email" required aria-required="true">
+            <label for="ml">Почта</label>
+            <input type="text" class="form-control" id="ml" name="email">
           </div>
           <div class="form-group">
-            <label>Пароль</label>
-            <input type="text" class="form-control" name="password" required aria-required="true">
+            <label for="pass">Пароль</label>
+            <input type="text" class="form-control" id="pass" name="password">
           </div>
-          <button type="submit" class="btn btn-primary">Войти</button>
+
+          <button type="submit" class="btn btn-primary"onclick="return validate();">Войти</button>
           <c:if test="${not empty error}">
             <div style="color:red; font-weight: bold; margin: 30px 0;">
                 ${error}

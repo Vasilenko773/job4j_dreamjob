@@ -48,6 +48,7 @@
           </thead>
 
           <tbody>
+
           <c:forEach items="${candidates}" var="candidate">
             <tr>
               <td>
@@ -68,8 +69,11 @@
             </tr>
 
           </c:forEach>
-
           </tbody>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/city.jsp">Список городов</a>
+          </li>
+
         </table>
       </div>
     </div>

@@ -16,6 +16,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+    <script>
+        function validate() {
+            if ($('#log').val() === "") {
+                alert('Не заполненно поле Логин');
+                return false;
+            } else if ($('#mle').val() === "") {
+                alert('Не заполненно поле Почта');
+                return false;
+            } else if ($('#pswd').val() === "") {
+                alert('Не заполненно поле Пароль');
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
     <title>Работа мечты</title>
 </head>
 
@@ -31,20 +48,20 @@
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
-                        <label>Логин</label>
-                        <input type="text" class="form-control" name="name" required aria-required="true">
+                        <label for="log">Логин</label>
+                        <input type="text" class="form-control" id="log" name="name" required aria-required="true">
                     </div>
 
                     <div class="form-group">
-                        <label>Почта</label>
-                        <input type="text" class="form-control" name="email" required aria-required="true">
+                        <label for="mle">Почта</label>
+                        <input type="text" class="form-control" id="mle" name="email" required aria-required="true">
                     </div>
 
                     <div class="form-group">
-                        <label>Пароль</label>
-                        <input type="text" class="form-control" name="password" required aria-required="true">
+                        <label for="pswd">Пароль</label>
+                        <input type="text" class="form-control" id="pswd" name="password" required aria-required="true">
                     </div>
-                    <button type="submit" class="btn btn-primary">Зарегистрироватся</button>
+                    <button type="submit" class="btn btn-primary"onclick="return validate();">Зарегистрироватся</button>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">
                                 ${error}
