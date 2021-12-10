@@ -3,7 +3,9 @@ package ru.job4j.dream.servlet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.job4j.dream.model.City;
+import ru.job4j.dream.store.DbStore;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,14 +22,30 @@ public class CityServlet extends HttpServlet {
     private static final Gson GSON = new GsonBuilder().create();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
-        for (City city : cities) {
-            String json = GSON.toJson(city);
-            output.write(json.getBytes(StandardCharsets.UTF_8));
-            output.flush();
-            output.close();
+        String json = GSON.toJson(DbStore.instOf().findAllCity());
+        output.write(json.getBytes(StandardCharsets.UTF_8));
+        output.flush();
+        output.close();
+        req.getRequestDispatcher("city.do").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        City city = GSON.fromJson(req.getReader(), City.class);
+        for (City s : DbStore.instOf().findAllCity()) {
+            if (s.getName().equals(city.getName())) {
+                DbStore.instOf().saveCity(city);
+            }
         }
+        resp.setContentType("application/json; charset=utf-8");
+        OutputStream output = resp.getOutputStream();
+        String json = GSON.toJson(city);
+        output.write(json.getBytes(StandardCharsets.UTF_8));
+        output.flush();
+        output.close();
     }
 }
+
