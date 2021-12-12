@@ -44,6 +44,7 @@
           <tr>
             <th scope="col">Названия</th>
             <th scope="col">Фотография</th>
+            <th scope="col">Список городов</th>
           </tr>
           </thead>
 
@@ -66,13 +67,15 @@
               <a href="<c:url value='/delete?id=${candidate.id}'/>">Удалить кандидата</a>
 
               </th>
+
+              <th>
+                <c:out value="${candidate.name}"/>
+              </th>
+
             </tr>
 
           </c:forEach>
           </tbody>
-          <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/city.jsp">Список городов</a>
-          </li>
 
         </table>
       </div>

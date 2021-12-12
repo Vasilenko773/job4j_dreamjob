@@ -27,9 +27,9 @@ public interface Store {
 
     User findByEmailUser(String email);
 
-    void saveCity(City city);
-
     City findByIdCity(int id);
 
     Collection<City> findAllCity();
+
+    City findCityByName(String name);
 }

@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -75,10 +77,12 @@ public class DbStore implements Store {
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> cnd = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT cand.id, cand.name, cand.cityId, c.name as cityname, cand.created from candidate "
+                    + "as cand left join cities as c on cand.cityId = c.id")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    cnd.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    cnd.add(new Candidate(it.getInt("id"), it.getString("name"),
+                            it.getTimestamp("created").toLocalDateTime(), it.getInt("cityId")));
                 }
             }
         } catch (Exception e) {
@@ -124,9 +128,12 @@ public class DbStore implements Store {
 
     private Candidate createCnd(Candidate cnd) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)",
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name, created, cityId)"
+                             + " VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, cnd.getName());
+            ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setInt(3, cnd.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -152,9 +159,10 @@ public class DbStore implements Store {
 
     private void updateCnd(Candidate cnd) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE candidate set name = ? where id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidate set name = ?, citiId = ? where id = ?")) {
             ps.setString(1, cnd.getName());
-            ps.setInt(2, cnd.getId());
+            ps.setInt(2, cnd.getCityId());
+            ps.setInt(3, cnd.getId());
             ps.execute();
         } catch (Exception e) {
             LOGGER.error("Не удалось изменить кандидата", e);
@@ -254,30 +262,6 @@ public class DbStore implements Store {
     }
 
     @Override
-    public void saveCity(City city) {
-        if (city.getName() != null) {
-            createCity(city);
-        }
-    }
-
-    private City createCity(City city) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO cities(name) VALUES (?)",
-                     PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, city.getName());
-            ps.execute();
-            try (ResultSet id = ps.getGeneratedKeys()) {
-                if (id.next()) {
-                    city.setId(id.getInt(1));
-                }
-            }
-        } catch (Exception e) {
-            LOGGER.error("Не удалось добавить новый горрод", e);
-        }
-        return city;
-    }
-
-    @Override
     public City findByIdCity(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM cities WHERE id = ?")) {
@@ -309,5 +293,24 @@ public class DbStore implements Store {
         }
         return cities;
     }
+
+    @Override
+    public City findCityByName(String name) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM cities WHERE name = ?")
+        ) {
+            ps.setString(1, name);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new City(it.getInt("id"),
+                            it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Ошибка при получении города по имени", e);
+        }
+        return null;
+    }
+
 }
 

@@ -35,6 +35,13 @@
     </script>
 
     <script>
+        function savecity() {
+            let cityName = $('#cities').val();
+            $('#city').val(cityName);
+        }
+    </script>
+
+    <script>
         $(document).ready(function () {
             $.ajax({
                 type: 'GET',
@@ -86,6 +93,10 @@
                         <select class="form-control" id="cities" onchange="savecity()">
                             <option></option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="city" id="city" hidden>
                     </div>
 
                     <button type="submit" class="btn btn-primary" onclick="return validate();">Сохранить</button>
