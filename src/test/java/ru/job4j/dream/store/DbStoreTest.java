@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.is;
 
 public class DbStoreTest {
 
+    @Ignore
     @Test
     public void whenCreatePost() {
         Store store = DbStore.instOf();
@@ -24,6 +25,7 @@ public class DbStoreTest {
         assertThat(postInDb.getName(), is(post.getName()));
     }
 
+    @Ignore
     @Test
     public void whenUpdatePost() {
         Store store = DbStore.instOf();
@@ -35,6 +37,7 @@ public class DbStoreTest {
         assertThat(postInDb.getName(), is(post1.getName()));
     }
 
+    @Ignore
     @Test
     public void whenFindAllPost() {
         Store store = DbStore.instOf();
@@ -47,6 +50,7 @@ public class DbStoreTest {
         assertThat(list.iterator().next().getName(), is(post1.getName()));
     }
 
+    @Ignore
     @Test
     public void whenCreateCandidate() {
         Store store = DbStore.instOf();
@@ -56,6 +60,7 @@ public class DbStoreTest {
         assertThat(cndInDb.getName(), is(candidate.getName()));
     }
 
+    @Ignore
     @Test
     public void whenUpdateCandidate() {
         Store store = DbStore.instOf();
@@ -67,6 +72,7 @@ public class DbStoreTest {
         assertThat(cndInDb.getName(), is(cnd1.getName()));
     }
 
+    @Ignore
     @Test
     public void whenFindAllCandidate() {
         Store store = DbStore.instOf();
@@ -78,6 +84,7 @@ public class DbStoreTest {
         assertThat(list.iterator().next().getName(), is(cnd1.getName()));
     }
 
+    @Ignore
     @Test
     public void whenSaveUserAndFindByEmail() {
         Store store = DbStore.instOf();
