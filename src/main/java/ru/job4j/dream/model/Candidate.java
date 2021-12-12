@@ -1,15 +1,27 @@
 package ru.job4j.dream.model;
 
+import ru.job4j.dream.store.DbStore;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Candidate {
     private int id;
     private String name;
     private int cityId;
+    private LocalDateTime created = LocalDateTime.now();
 
     public Candidate(int id, String name) {
         this.id = id;
         this.name = name;
+        this.created = LocalDateTime.now();
+    }
+
+    public Candidate(int id, String name, LocalDateTime created, int cityId) {
+        this.id = id;
+        this.name = name;
+        this.created = created;
+        this.cityId = cityId;
     }
 
     public int getId() {
