@@ -48,7 +48,6 @@ public class Candidate {
         this.cityId = cityId;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
