@@ -49,6 +49,7 @@ public class Candidate {
                 && Objects.equals(name, candidate.name);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
