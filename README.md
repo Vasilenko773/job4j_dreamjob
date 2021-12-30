@@ -1,4 +1,10 @@
-I like that!!!
-В последнее время очень много ставят задач по основной работе. Но я отчетливо понимаю ,что мне не нравится то на что я трачу 50? своей жизни.
-Не хочу себя ограниччивать и ставить перед собой рамки. При желании можно свернуть горы. Я выбираю быть человеком, который не смотря нане взгоды стремится
-к саморазвитию, чтобы улучшить качество своей жизни, ведь в ней столько прекрасного. Таков мой lifeStyle
+# job4j DreamJob
+
+В рамках данного проекта проводилась изучение таких технологий как Servlet, jsp, Java Script. Закриплялись знания HTML тегов и структуры web приложения. Помимо прочего активно использовалась СУБД (PostgreSQL);
+
+![Image of Yaktocat](https://github.com/Vasilenko773/job4j_dreamjob/blob/master/1.PNG)
+![Image of Yaktocat](https://github.com/Vasilenko773/job4j_dreamjob/blob/master/2.PNG)
+![Image of Yaktocat](https://github.com/Vasilenko773/job4j_dreamjob/blob/master/3.PNG)
+
+Контакты:
+email: Vasilenko.lesnik2017@yandex.ru
